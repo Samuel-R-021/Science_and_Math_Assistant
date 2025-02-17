@@ -9,7 +9,7 @@ topics = {'Choose one': '',
             #   'Thermodynamic Formulas': thermo_formulas,
             #   'Chemical Reaction Equations': chem_equation,
             #   'Formula maker': formula_maker,
-              'Algebra testing': 'the_quadratic_formula'}
+              'The Quadratic Formula': 'the_quadratic_formula'}
 
 st.title('_Math Assistant_')
 session_intro()
