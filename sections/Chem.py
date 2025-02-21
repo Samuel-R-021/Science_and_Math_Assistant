@@ -24,5 +24,3 @@ topic = topic_selection(topics)  # Recibe el valor de la llave seleccionada en l
 # if topic == 'the_quadratic_formula':
 #     the_quadratic_formula()
 
-st.subheader(topic, divider=True)
-
