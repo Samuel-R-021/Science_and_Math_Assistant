@@ -7,6 +7,10 @@ home_page = st.Page(
     title='Home',
     default=True
 )
+auditor_page = st.Page(
+    page='sections/Auditor.py',
+    title='Templates'
+)
 math_page = st.Page(
     page='sections/Math.py',
     title='Math',
@@ -25,6 +29,7 @@ stats_page = st.Page(
 pages = st.navigation(pages=
     {
         '':[home_page],
+        'Auditor':[auditor_page],
         'Topics':[chem_page, math_page, stats_page]
         }
         )

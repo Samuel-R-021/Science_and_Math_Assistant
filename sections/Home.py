@@ -2,8 +2,22 @@ import streamlit as st
 
 st.title('_Science and Math Assistant_')
 
-st.header('Revisar Herencia, DataClass y Abstract class y aplicarlo si conviene')
-st.header('Rediseñar la class constant')
-st.header('En Gas Laws: añadir un RaiseError para cuando las unidades no sean iguales, y/o la temperatura no este en Kelvin')
-st.subheader('Buscar como leer txt para escribir compuesto y tener molar mass')
+# ---------------------- CODE FOR TESTING ------------------------
 
+from test import Permutation, Combination
+
+
+
+
+# Example usage
+st.title("Combinations and Permutations Calculator")
+
+col1, col2 = st.columns(2)
+n = col1.number_input("Enter n value:", min_value=1, value=5)
+r = col2.number_input("Enter r value:", min_value=0, value=3)
+
+perm = Permutation(n, r)
+perm.display()
+
+comb = Combination(n, r)
+comb.display()
