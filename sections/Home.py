@@ -13,8 +13,9 @@ from test import Permutation, Combination
 st.title("Combinations and Permutations Calculator")
 
 col1, col2 = st.columns(2)
-n = col1.number_input("Enter n value:", min_value=1, value=5)
-r = col2.number_input("Enter r value:", min_value=0, value=3)
+
+n = col1.number_input("Enter n value:", min_value=1)
+r = col2.number_input("Enter r value:", min_value=0, max_value=n)
 
 perm = Permutation(n, r)
 perm.display()
