@@ -176,7 +176,13 @@ def service_feedback(before_after, gaps_feedback, gap_score):
                                 "In future sessions, please do not let too much time pass between messages. Doing so will help you improve your score.")
         case (True, True):    # Both issues
             checking_feedback = "during the session" if before_after == "Both" else f"{before_after} the final answer"
-            service_score = "D" if before_after == "Both" and gap_score == "C" else "C"
+            # service_score = "D" if before_after == "Both" and gap_score == "C" else "C"
+            if before_after != "Both" and gap_score == "B":
+                service_score = "B"
+            elif (before_after == "Both" and gap_score == "B") or (before_after != "Both" and gap_score == "C"):
+                service_score = "C"
+            else:
+                service_score = "D"
 
             service_feedback = (f"You received a {service_score} score because 1) there was no attempt to check the student's understanding {checking_feedback}, and "
                            f"2) {gaps_feedback}. "
