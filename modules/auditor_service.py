@@ -28,24 +28,21 @@ def service():
 
         long_gap = st.radio("\> 5 min?",["No", "Yes"],
                             horizontal=True,
-                            disabled=True if num_gaps != 1 else False
+                            disabled=False if num_gaps == 1 else True
                             )
          
         # It is defined after long_gap, but shown first using st.container
         before_after = container.radio("Before or after the final answer?",
                                     ["before","after"],
                                     horizontal=True,
-                                    disabled=False if missing_checks == 1 and num_gaps >= 1 and long_gap== "Yes" else True
+                                    disabled=False if missing_checks == 1 and ((num_gaps == 1 and long_gap== "Yes") or (num_gaps >= 2)) else True
                                     )
         if missing_checks > 1:
             before_after = "Both"
         elif missing_checks == 0:
             before_after = None
         
-        # long_gap = st.radio("\> 5 min?",["No", "Yes"],
-        #                     horizontal=True,
-        #                     disabled=True if num_gaps != 1 else False
-        #                     )
+
         if long_gap == "No" and num_gaps == 1:
             num_gaps = 0    
         
@@ -176,7 +173,7 @@ def service_feedback(before_after, gaps_feedback, gap_score):
                                 "In future sessions, please do not let too much time pass between messages. Doing so will help you improve your score.")
         case (True, True):    # Both issues
             checking_feedback = "during the session" if before_after == "Both" else f"{before_after} the final answer"
-            # service_score = "D" if before_after == "Both" and gap_score == "C" else "C"
+            
             if before_after != "Both" and gap_score == "B":
                 service_score = "B"
             elif (before_after == "Both" and gap_score == "B") or (before_after != "Both" and gap_score == "C"):
