@@ -2,19 +2,7 @@ import streamlit as st
 
 def service():
     col1, col2 = st.columns(2, vertical_alignment="top")
-
-    with col2:
-        num_gaps = st.number_input(
-            label="Number of time gaps",
-            min_value=0,
-            step=1,
-            help="Select the total number of gaps between messages."
-        )
-        if num_gaps == 1:
-            long_gap = st.radio("\> 5 min?",["No", "Yes"],horizontal=True)
-            if long_gap == "No":
-                num_gaps = 0
-
+    
     with col1:
         missing_checks = st.number_input(
             label="Number of missing checkings",
@@ -23,13 +11,44 @@ def service():
             step=1,
             help="Select the total number of missing checkings during the session."
         )
-        before_after = None
-        if missing_checks == 1 and num_gaps >= 1:
-            before_after = st.radio("Before or after the final answer?",
-                                        ["before","after"],
-                                        horizontal=True)
-        elif missing_checks >= 1:
+
+        num_gaps = st.number_input(
+            label="Number of time gaps",
+            min_value=0,
+            step=1,
+            help="Select the total number of gaps between messages."
+        )
+        
+        
+
+    with col2:
+        
+        # st.container is used to define variables in one order, but to show them in a different order
+        container = st.container()
+
+        long_gap = st.radio("\> 5 min?",["No", "Yes"],
+                            horizontal=True,
+                            disabled=True if num_gaps != 1 else False
+                            )
+         
+        # It is defined after long_gap, but shown first using st.container
+        before_after = container.radio("Before or after the final answer?",
+                                    ["before","after"],
+                                    horizontal=True,
+                                    disabled=False if missing_checks == 1 and num_gaps >= 1 and long_gap== "Yes" else True
+                                    )
+        if missing_checks > 1:
             before_after = "Both"
+        elif missing_checks == 0:
+            before_after = None
+        
+        # long_gap = st.radio("\> 5 min?",["No", "Yes"],
+        #                     horizontal=True,
+        #                     disabled=True if num_gaps != 1 else False
+        #                     )
+        if long_gap == "No" and num_gaps == 1:
+            num_gaps = 0    
+        
 
     return before_after, num_gaps
 
@@ -50,7 +69,7 @@ def service_3_time(num_gaps):
     # Add a separator at the end for a cleaner look
     st.markdown("---")
 
-    
+
     # This variable will store the last end message number to use for the next gap's start message.
     # It is initialized to 0, so the first gap can start with message number 0 (which is the start of the session).
     previous_end_msg = 0
