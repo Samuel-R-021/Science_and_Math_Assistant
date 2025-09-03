@@ -1,0 +1,9 @@
+import streamlit as st
+
+def accuracy_feedback(accuracy):
+    template_dict = {'Copy/Paste': "You received an automatic D score because there are some explanation steps messages (#) that are copy/pasted, which is not allowed. Complete or even partial copy/pasted explanation steps or answers are automatically penalized. In future sessions, do not copy/paste any part of your explanations or answers. Doing so will help you improve your score.",
+                    'Full Copy/Paste': "You received an automatic D score because the entire session is copy/pasted, which is not allowed. Complete or even partial copy/pasted explanation steps or answers are automatically penalized. In future sessions, do not copy/paste any part of your explanations or answers. Doing so will help you improve your score.",
+                    'Incorrect subject': "You received an automatic D score because you have incorrectly claimed a question that should have been flagged as “Incorrect subject tag” since this type of question is clearly not supported by the platform. In doing so, you gave the student false expectations that you and the rest of the Expert community can solve this type of questions, and you actively committed fraud against the company as you received credits by claiming it.",
+                    'Incomplete/Unclear': "You received an automatic D score because you have incorrectly claimed a question that should have been flagged as “Incomplete/unclear” since the question doesn't have the necessary information to be solved. Here, there isn’t a reasonable assumption you can make about this problem. It could be (...). There are too many different ways that the problem could be asked. In future sessions, please be more careful and bid/flag/skip properly before claiming."
+                      }
+    return template_dict[accuracy] if accuracy else "All good"

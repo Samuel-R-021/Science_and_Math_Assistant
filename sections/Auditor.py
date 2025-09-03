@@ -1,12 +1,19 @@
 import streamlit as st
 from modules.auditor_service import service_feedback, service_3_gaps_info
 from modules.auditor_polish import polish
-from modules.auditor_inputs import service_2_checks, service_3_num_gaps
+from modules.auditor_inputs import service_2_checks, service_3_num_gaps, format_1_concept, accuracy
 
+st.header("Accuracy")
+accuracy_feedback = accuracy()
 
-st.header("Service and Polish Inputs")
 st.markdown("---")
 
+st.header("Format")
+format_feedback = format_1_concept()
+
+st.markdown("---")
+
+st.header("Service and Polish Inputs")
 # All columns to fill the inputs
 inputs, start, end, minutes, instances = st.columns(5)
 with inputs:
@@ -41,11 +48,11 @@ st.code(polish_feedback_text)
 st.markdown("---")
 
 st.subheader("Accuracy Feedback")
-st.markdown(polish_feedback_text)
-st.code(polish_feedback_text)
+st.markdown(accuracy_feedback)
+st.code(accuracy_feedback)
 
 st.markdown("---")
 
 st.subheader("Format Feedback")
-st.markdown(polish_feedback_text)
-st.code(polish_feedback_text)
+st.markdown(format_feedback)
+st.code(format_feedback)

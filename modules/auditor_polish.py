@@ -19,12 +19,12 @@ def polish(instances):
                                      value= 0,
                                      step=1,
                                      help="Select the total number of messages incorrectly formatted.",
-                                     disabled=True if entire_session== "Yes" else False
+                                     disabled= entire_session == "Yes"
                                      )
 
     text_type = st.radio("Only text?",["No", "Yes"],
                             horizontal=True,
-                            disabled=True if entire_session == "Yes" or num_msg >=1 else False,
+                            disabled=entire_session == "Yes" or num_msg >=1,
                             index=  0)
     polish_feedback = "No problems here" if text_type == "Yes" else polish_feedback
 
@@ -64,12 +64,12 @@ def polish(instances):
 
             # Join the formatted gap strings with commas
             instance_text = ", ".join(instance_data)
-            if num_msg == 2:
+            if num_msg == 1:
+                return polish_feedback
+            elif num_msg == 2:
                 polish_score = "B" 
             elif num_msg == 3:
                 polish_score = "C"
-            elif num_msg == 1:
-                return polish_feedback
             else:
                 polish_score = "D"
             polish_feedback = (f"You received a {polish_score} score "

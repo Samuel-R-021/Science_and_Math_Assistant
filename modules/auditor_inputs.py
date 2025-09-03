@@ -1,5 +1,21 @@
 import streamlit as st
+from modules.auditor_concept import concept_feedback
+from modules.auditor_accuracy import accuracy_feedback
 
+def accuracy():
+    accuracy = st.selectbox('Accuracy',
+                            ['Copy/Paste','Full Copy/Paste', 'Incorrect subject', 'Incomplete/Unclear'],
+                            index=None,
+                            label_visibility="collapsed",
+                            )
+    return accuracy_feedback(accuracy)
+def format_1_concept():
+    concept_type = st.selectbox('Format',
+                                ['Incomplete','No concept', 'Long messages'],
+                                index=None,
+                                label_visibility="collapsed"
+                                )
+    return concept_feedback(concept_type)
 def service_2_checks():
 
     before = st.checkbox('before')
