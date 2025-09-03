@@ -3,19 +3,24 @@ import streamlit as st
 def polish(instances):
 
     polish_feedback = "All good"
+
+    container = st.container()
     
-    entire_session = st.radio("All messages?",["No", "Yes"],horizontal=True)
+    entire_session = st.radio("All messages?",
+                              ["No", "Yes"],
+                              horizontal=True
+                              )
+    
     if entire_session == "Yes":
         polish_feedback = "You received a D score because the entire session is incorrectly formatted. In future sessions, please -. Doing so will help you improve your score."
         
-    num_msg = st.number_input(
-    label="Number of messages",
-    min_value= 0,
-    value=100 if entire_session== "Yes" else 0,
-    step=1,
-    help="Select the total number of messages incorrectly formatted.",
-    disabled=True if entire_session== "Yes" else False
-    )
+    num_msg = container.number_input(label="Number of msgs",
+                                     min_value= 0,
+                                     value= 0,
+                                     step=1,
+                                     help="Select the total number of messages incorrectly formatted.",
+                                     disabled=True if entire_session== "Yes" else False
+                                     )
 
     text_type = st.radio("Only text?",["No", "Yes"],
                             horizontal=True,
@@ -23,13 +28,15 @@ def polish(instances):
                             index=  0)
     polish_feedback = "No problems here" if text_type == "Yes" else polish_feedback
 
-    if entire_session == "No" and num_msg >= 0:
+    if  num_msg >= 0:
         with instances:
             instance_data = []
 
-
             previous_instance = 1
             disabled = False
+
+            if entire_session == "Yes":
+                disabled = True
 
             if num_msg == 0:
                 previous_instance = 0
@@ -61,9 +68,12 @@ def polish(instances):
                 polish_score = "B" 
             elif num_msg == 3:
                 polish_score = "C"
+            elif num_msg == 1:
+                return polish_feedback
             else:
                 polish_score = "D"
-            polish_feedback = (f"You received a {polish_score} score because there are {num_msg} instances (messages #{instance_text}) " 
+            polish_feedback = (f"You received a {polish_score} score "
+                               f"because there are {num_msg} instances (messages #{instance_text}) " 
                                 "where the messages are incorrectly formatted. In future sessions, please -. Doing so will help you improve your score.")
 
     return polish_feedback

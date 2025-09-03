@@ -4,12 +4,12 @@ import streamlit as st
 
 home_page = st.Page(
     page='sections/Home.py',
-    title='Home',
-    default=True
+    title='Home'
 )
 auditor_page = st.Page(
     page='sections/Auditor.py',
-    title='Templates'
+    title='Templates',
+    default=True
 )
 math_page = st.Page(
     page='sections/Math.py',

@@ -20,7 +20,7 @@ def service_2_checks():
 def service_3_num_gaps():
      
     return st.number_input(
-        label="Number of time gaps",
+        label="Number of gaps",
         min_value=0,
         step=1,
         help="Select the total number of gaps between messages."
